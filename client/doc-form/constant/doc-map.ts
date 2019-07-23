@@ -1,0 +1,1 @@
+export const requestMethods = ['get', 'post', 'put', 'delete', 'patch'];

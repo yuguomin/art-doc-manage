@@ -1,0 +1,101 @@
+.select-component {
+  position: relative;
+  &-input {
+    position: relative;
+    height: 30px;
+    line-height: 28px;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 8px;
+    padding-right: 24px;
+    box-sizing: border-box;
+    border: 1px solid #dddee1;
+    border-radius: 4px;
+    background-color: #e5e5e5;
+    // background-color: #fff;
+    transition: all .2s;
+    cursor: pointer;
+
+    &.allow-choose {
+      background-color: #fff;
+      &.foucs {
+        border: 1px solid #2d8cf0;
+        box-shadow: 0 0 2px 1px #2d8cf0;
+      }
+  
+      &:hover {
+        border: 1px solid #2d8cf0;
+      }
+    }
+  }
+  &-icon-arrow {
+    position: absolute;
+    top: 12px;
+    right: 9px;
+    border-right: 6px solid transparent;
+    border-left : 6px solid transparent;
+    border-bottom: 6px solid #80848f;
+    transition: all .2s;
+    transform-origin: center center; 
+    &.rotate-up {
+      transform: rotate(0);
+    }
+    &.rotate-down {
+      transform: rotate(180deg);
+    }
+  }
+  &-list {
+    position: absolute;
+    list-style: none;
+    margin: 5px 0;
+    padding: 0 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 1px 6px rgba(0,0,0,.2);
+    color: #495060;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transform-origin: center top;
+    transition: all .5s;
+    overflow: hidden;
+
+    &.slide-down {
+      max-height: 100vh;
+    }
+    &.slide-up {
+      max-height: 0;
+    }
+  }
+  &-item {
+    box-sizing: border-box;
+    height: 28px;
+    line-height: 14px;
+    padding: 7px 16px;
+    transition: background .4s ease-in-out;
+    &.choose-select {
+      &.disable {
+        cursor: default;
+        background-color: #e5e5e5 !important;
+      }
+      &.selected {
+        background-color: #2d8cf0;
+        color: #fff;
+        &:hover {
+          background-color: #2d8cf0;
+        }
+      }
+      &:hover {
+        background-color: #f3f3f3;
+      }
+    }
+    &:first-of-type {
+      margin-top: 5px;
+    }
+    &:last-of-type {
+      margin-bottom: 5px;
+    }
+  }
+}
