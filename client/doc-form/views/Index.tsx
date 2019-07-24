@@ -5,6 +5,7 @@ import TopNav from '../../common/components/top-nav';
 import Select from 'client/common/components/select';
 import { requestMethods } from '../constant/doc-map';
 import { ISelectItem } from 'client/common/components/select/propsType';
+import SearchInput from 'client/common/components/search-input';
 
 export default class DocFormIndex extends CoreComponentAll<any, any> {
 
@@ -33,7 +34,7 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
         <div className="form-block">
           <div className="detail-block">
             <div className="detail-item">
-              Description:
+              <span>Description:</span>
               <Select
                 defaultValue={state.defaultMethod}
                 disable={false}
@@ -41,15 +42,16 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
                 onClickItem={this.chooseMethod} />
             </div>
             <div className="detail-item">
-              URL:
-              <Select
+              <span>URL:</span>
+              {/* <Select
                 defaultValue={state.defaultMethod}
                 disable={false}
                 selectList={state.selectMethodsList}
-                onClickItem={this.chooseMethod} />
+                onClickItem={this.chooseMethod} /> */}
+              <SearchInput searchScope={[]}/>
             </div>
             <div className="detail-item">
-              Method:
+              <span>Method:</span>
               <Select
                 defaultValue={state.defaultMethod}
                 disable={false}

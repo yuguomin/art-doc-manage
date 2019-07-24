@@ -47,7 +47,7 @@ export default class Select extends CoreComponent<ISelectProps, any> {
   public render() {
     const state = this.state;
     const { inputStyle, itemStyle, disable } = this.props;
-    const inputStyles = this.classNames('select-component-input', disable ? '' : 'allow-choose', state.isOpen ? 'foucs' : '');
+    const inputStyles = this.classNames('select-component-input', disable ? '' : 'allow-choose', state.isOpen ? 'focus' : '');
 
     return (
       <div className="select-component">
