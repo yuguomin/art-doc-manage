@@ -6,6 +6,5 @@ export interface ISearchInputProps {
   itemStyle?: any;
   searchScope: string[];
   verifyInputValue?: (inputValue: string) => string;
-  onClickItem?: (clickItem: string) => void;
   onChangeValue?: (inputValue: string) => void;
 }

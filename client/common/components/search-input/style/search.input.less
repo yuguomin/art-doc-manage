@@ -2,7 +2,7 @@
   position: relative;
   &-input {
     display: block;
-    padding: 0;
+    padding: 0 24px 0 8px;
     margin: 0;
     box-sizing: border-box;
     width: 100%;
@@ -46,10 +46,13 @@
     height: 28px;
     line-height: 14px;
     padding: 7px 16px;
-    &.choose-select {
-      &.disable {
-        cursor: default;
-        background-color: #e5e5e5 !important;
+    // &.choose-select {
+      // &.disable {
+      //   cursor: default;
+      //   background-color: #e5e5e5 !important;
+      // }
+      &.match-style {
+        background-color: #f3f3f3;
       }
       &.selected {
         background-color: #2d8cf0;
@@ -61,12 +64,55 @@
       &:hover {
         background-color: #f3f3f3;
       }
-    }
+    // }
     &:first-of-type {
       margin-top: 5px;
     }
     &:last-of-type {
       margin-bottom: 5px;
+    }
+  }
+  &-icon {
+    position: absolute;
+    top: 50%;
+    right: 7px;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+  }
+  .correct-icon {
+    position: absolute;
+    top: 50%;
+    right: 7px;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border: 2px solid #04be02;
+    border-radius: 50%;
+  }
+  .error-icon {
+    display: inline-block;
+    width: 10px;
+    height:2px;
+    background: red;
+    line-height: 0;
+    font-size:0;
+    vertical-align: middle;
+    -webkit-transform: rotate(45deg);
+    // &::before,
+    // &::after {
+    //   content: '';
+    // }
+    // &::before {
+
+    // }
+    &::after {
+      content:'/';
+      display: block;
+      width: 10px;
+      height:2px;
+      background: red;
+      transform: rotate(-90deg);
+      -webkit-transform: rotate(-90deg);
     }
   }
 }

@@ -26,6 +26,10 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
     this.setState({ selectMethod: methodInfo.value });
   }
 
+  public changeSearch = (value: string) => {
+    console.log('change', value);
+  }
+
   public render() {
     const state = this.state;
     return (
@@ -48,7 +52,7 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
                 disable={false}
                 selectList={state.selectMethodsList}
                 onClickItem={this.chooseMethod} /> */}
-              <SearchInput searchScope={[]}/>
+              <SearchInput isLockInputToSearch={false} searchScope={['abc', 'ddd', 'ced', 'fgq']} onChangeValue={this.changeSearch} />
             </div>
             <div className="detail-item">
               <span>Method:</span>
