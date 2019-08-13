@@ -10,6 +10,10 @@ enum KeyDownArrowStatus {
 
 export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
 
+  public static defaultProps = {
+    searchScope: []
+  };
+
   public state = {
     inputValue: '',
     isFocus: false,
@@ -50,7 +54,8 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
         break;
       case 13:
         event.preventDefault();
-        this.onClickItem(String(state.matchingList[state.chooseIndex - 1]));
+        const chooseIndex = state.chooseIndex === 0 ? state.chooseIndex : state.chooseIndex - 1;
+        this.onClickItem(String(state.matchingList[chooseIndex]));
         break;
     }
   }
@@ -70,8 +75,14 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
 
   public triggerChangeValue = (value: string) => {
     if (this.props.onChangeValue) {
+      value = this.props.prefix ? this.props.prefix + value : value;
       this.props.onChangeValue(value);
     }
+  }
+
+  private isInputCorrectValue: () => boolean = () => {
+    const sameValue = this.props.searchScope.find((value) => value === this.state.inputValue);
+    return Boolean(sameValue);
   }
 
   private findMatchingList: (inputValue: string) => string[] = (inputValue) => {
@@ -105,37 +116,41 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
 
   public render() {
     const state = this.state;
-    const { inputStyle, disable } = this.props;
+    const { inputStyle, disable, prefix, isLockInputToSearch } = this.props;
     const inputStyles = this.classNames(
       'search-input-component-input',
       disable ? '' : 'allow-choose',
       state.isFocus ? 'focus' : '',
+      prefix ? 'has-prefix' : '',
       inputStyle);
 
     return (
       <div className="search-input-component">
-        <input
-          type="text"
-          className={inputStyles}
-          value={state.inputValue}
-          onFocus={this.onFocusInput}
-          onChange={this.onChangeValue}
-          onKeyDown={this.onKeyDown} />
-          <i className="search-input-component-icon error-icon"></i>
-        {state.matchingList.length ? <ul className="search-input-component-search">
-          {state.matchingList.map((info, index) => {
-            return (
-              <li
-                className={this.classNames('search-input-component-item',
-                  state.chooseIndex === (index + 1) ? 'match-style' : ''
-                )}
-                onClick={this.onClickItem.bind(this, info)}
-                key={index}>
-                {info}
-              </li>
-            );
-          })}
-        </ul> : null}
+        {prefix ? <span className="search-input-component-prefix">{prefix}</span> : null}
+        <div className="search-input-component-container">
+          <input
+            type="text"
+            className={inputStyles}
+            value={state.inputValue}
+            onFocus={this.onFocusInput}
+            onChange={this.onChangeValue}
+            onKeyDown={this.onKeyDown} />
+            {isLockInputToSearch && <i className={this.classNames('search-input-component-icon', this.isInputCorrectValue() ? 'correct-icon' : 'error-icon' )}></i>}
+          {state.matchingList.length ? <ul className="search-input-component-search">
+            {state.matchingList.map((info, index) => {
+              return (
+                <li
+                  className={this.classNames('search-input-component-item',
+                    state.chooseIndex === (index + 1) ? 'match-style' : ''
+                  )}
+                  onClick={this.onClickItem.bind(this, info)}
+                  key={index}>
+                  {info}
+                </li>
+              );
+            })}
+          </ul> : null}
+        </div>
       </div>);
   }
 }

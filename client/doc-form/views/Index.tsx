@@ -6,6 +6,7 @@ import Select from 'client/common/components/select';
 import { requestMethods } from '../constant/doc-map';
 import { ISelectItem } from 'client/common/components/select/propsType';
 import SearchInput from 'client/common/components/search-input';
+import FormTable from 'client/common/components/form-table';
 
 export default class DocFormIndex extends CoreComponentAll<any, any> {
 
@@ -39,11 +40,7 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
           <div className="detail-block">
             <div className="detail-item">
               <span>Description:</span>
-              <Select
-                defaultValue={state.defaultMethod}
-                disable={false}
-                selectList={state.selectMethodsList}
-                onClickItem={this.chooseMethod} />
+              <SearchInput onChangeValue={this.changeSearch} />
             </div>
             <div className="detail-item">
               <span>URL:</span>
@@ -52,7 +49,7 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
                 disable={false}
                 selectList={state.selectMethodsList}
                 onClickItem={this.chooseMethod} /> */}
-              <SearchInput isLockInputToSearch={false} searchScope={['abc', 'ddd', 'ced', 'fgq']} onChangeValue={this.changeSearch} />
+              <SearchInput prefix={'/'} isLockInputToSearch={true} searchScope={['abc', 'ddd', 'ced', 'fgq']} onChangeValue={this.changeSearch} />
             </div>
             <div className="detail-item">
               <span>Method:</span>
@@ -63,6 +60,9 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
                 onClickItem={this.chooseMethod} />
             </div>
           </div>
+          <FormTable
+            title={'Request Params'}
+          />
         </div>
       </div>
     );

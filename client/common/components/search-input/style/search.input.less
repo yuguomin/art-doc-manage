@@ -1,6 +1,28 @@
 .search-input-component {
   position: relative;
+  &-prefix {
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 6px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #495060;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #dddee1;
+    border-right: none;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+  &-container {
+    // display: inline-block;
+    position: relative;
+    display: table-cell;
+    width: 9999px;
+  }
   &-input {
+    position: relative;
     display: block;
     padding: 0 24px 0 8px;
     margin: 0;
@@ -25,6 +47,10 @@
       &:hover {
         border: 1px solid #2d8cf0;
       }
+    }
+    &.has-prefix {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
     }
   }
   &-search {

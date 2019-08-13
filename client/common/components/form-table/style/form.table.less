@@ -1,0 +1,57 @@
+@addBtnWidth: 30px;
+@plusWidth: @addBtnWidth * 0.4;
+@plusHeight: 2px;
+
+.form-table-component {
+  &-title {
+    font-size: 24px;
+    color: #262626;
+  }
+  &-block {
+    min-width: 90%;
+    border-collapse: collapse;
+  }
+  &-header {
+    color: #363636;
+
+    .header-cell {
+      padding: 8px;
+      font-weight: normal;
+      border: 1px solid #666;
+      background-color: #dedede;
+    }
+  }
+  &-body {
+    .body-cell {
+      padding: 8px;
+      font-weight: normal;
+      border: 1px solid #666;
+      background-color: #ffffff;
+    }
+  }
+  &-add-btn {
+    position: relative;
+    left: -@addBtnWidth;
+    width: @addBtnWidth;
+    height: @addBtnWidth;
+    border: 1px solid #e8e8e8;
+    border-radius: 100px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .15);
+    &::before{
+      position: absolute;
+      top: (@addBtnWidth - @plusHeight) / 2;
+      left: (@addBtnWidth - @plusWidth) / 2;
+      content: '';
+      width: @plusWidth;
+      border-top: @plusHeight solid #25b864;
+    }
+    &::after {
+      position: absolute;
+      top: (@addBtnWidth - @plusWidth) / 2;
+      left: (@addBtnWidth - @plusHeight) / 2;
+      content: '';
+      height: @plusWidth;
+      border-left: @plusHeight solid #25b864;
+     }
+  }
+}

@@ -1,4 +1,5 @@
 export interface ISearchInputProps {
+  prefix?: string;
   disable?: boolean;
   defaultValue?: string;
   inputStyle?: any;
