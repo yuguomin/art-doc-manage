@@ -4,7 +4,7 @@ import './style/form.table.less';
 import { IFormTableProps, ITableCellDetail } from './propsType';
 import BodyCell from './BodyCell';
 
-const TableCellType = ['Name', 'Type', 'Explain', 'Example', 'Enum', 'Parents'];
+const TableCellType = ['Name', 'Type', 'Explain', 'Example', 'Enum', 'Parents', 'operate'];
 
 export default class Select extends CoreComponent<IFormTableProps, any> {
 
@@ -15,7 +15,7 @@ export default class Select extends CoreComponent<IFormTableProps, any> {
         type: 'string',
         explain: '颜色',
         example: '#fff',
-        enum: '',
+        enum: '1',
         parents: 'data'
       },
       {
@@ -23,7 +23,7 @@ export default class Select extends CoreComponent<IFormTableProps, any> {
         type: 'string',
         explain: '颜色',
         example: '#fff',
-        enum: '',
+        enum: '1',
         parents: 'data'
       }
     ] as ITableCellDetail[]
@@ -50,7 +50,7 @@ export default class Select extends CoreComponent<IFormTableProps, any> {
               })
             }
           </div>
-          <tbody className="form-table-component-body">
+          <div className="form-table-component-body">
             {
               state.tableCellList.map((value, index) => {
                 return (
@@ -58,7 +58,7 @@ export default class Select extends CoreComponent<IFormTableProps, any> {
                 );
               })
             }
-          </tbody>
+          </div>
         </div>
         <div onClick={this.addBodyCell} className="form-table-component-add-btn"></div>
       </div>

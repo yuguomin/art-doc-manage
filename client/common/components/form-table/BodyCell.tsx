@@ -1,7 +1,7 @@
 import React from 'react';
 import CoreComponent from 'art-lib-react/src/core/CoreComponent';
-import './style/form.table.less';
 import { IBodyCellProps } from './propsType';
+import EditBlock from './EditBlock';
 
 export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
 
@@ -11,34 +11,44 @@ export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
   public componentDidMount() {
   }
 
+  public onEdit = () => {
+
+  }
+
+  public onDel = () => {
+
+  }
+
   public render() {
     // const state = this.state;
-    const {cellDetail, className} = this.props;
+    const { cellDetail, className } = this.props;
 
     return (
-      <tr>
-        <td className={className}>
+      <div>
+        <div className={className}>
           {cellDetail.name}
-        </td>
-        <td className={className}>
+        </div>
+        <div className={className}>
           {cellDetail.type}
-        </td>
-        <td className={className}>
+        </div>
+        <div className={className}>
           {cellDetail.explain}
-        </td>
-        <td className={className}>
+        </div>
+        <div className={className}>
           {cellDetail.example}
-        </td>
-        <td className={className}>
+        </div>
+        <div className={className}>
           {cellDetail.enum}
-        </td>
-        {
-          cellDetail.parents ?
-          <td className={className}>
-            {cellDetail.parents}
-          </td> : null
-        }
-      </tr>
+        </div>
+        <div className={className}>
+          {cellDetail.parents}
+        </div>
+        <div className={`operate-block ${className}`}>
+          <span onClick={this.onEdit}>edit</span>
+          <span onClick={this.onDel}>del</span>
+        </div>
+        <EditBlock></EditBlock>
+      </div>
     );
   }
 }
