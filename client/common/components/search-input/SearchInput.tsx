@@ -114,6 +114,10 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
     }
   }
 
+  public onBlurInput = () => {
+    this.setState({ isFocus: false });
+  }
+
   public render() {
     const state = this.state;
     const { inputStyle, disable, prefix, isLockInputToSearch } = this.props;
@@ -133,6 +137,7 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
             className={inputStyles}
             value={state.inputValue}
             onFocus={this.onFocusInput}
+            onBlur={this.onBlurInput}
             onChange={this.onChangeValue}
             onKeyDown={this.onKeyDown} />
             {isLockInputToSearch && <i className={this.classNames('search-input-component-icon', this.isInputCorrectValue() ? 'correct-icon' : 'error-icon' )}></i>}

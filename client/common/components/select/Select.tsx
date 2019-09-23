@@ -44,13 +44,17 @@ export default class Select extends CoreComponent<ISelectProps, any> {
     this.setState({ isOpen: !this.state.isOpen });
   }
 
+  public onBlur = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  }
+
   public render() {
     const state = this.state;
     const { inputStyle, itemStyle, disable } = this.props;
     const inputStyles = this.classNames('select-component-input', disable ? '' : 'allow-choose', state.isOpen ? 'focus' : '');
 
     return (
-      <div className="select-component">
+      <div tabIndex={0} className="select-component" onBlur={this.onBlur}>
         <div onClick={this.toggleSelect} className={inputStyles} style={inputStyle}>{state.selectValue}
           {disable ? null : <i className={this.classNames('select-component-icon-arrow', state.isOpen ? 'rotate-up' : 'rotate-down')}></i>}
         </div>
