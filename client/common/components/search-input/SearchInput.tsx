@@ -18,7 +18,8 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
     inputValue: '',
     isFocus: false,
     matchingList: [],
-    chooseIndex: 0
+    chooseIndex: 0,
+    isBlurReset: true
   };
 
   public onChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +64,8 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
   public onClickItem = (info) => {
     this.setState({
       inputValue: info,
-      matchingList: this.findMatchingList(info)
+      matchingList: this.findMatchingList(info),
+      isBlurReset: true
     }, () => {
       this.triggerChangeValue(this.state.inputValue);
     });
@@ -121,8 +123,18 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
     }
   }
 
-  public onBlurInput = () => {
-    this.setState({ isFocus: false, chooseIndex: 0 });
+  public onBlur = () => {
+    if (this.state.isBlurReset) {
+      this.setState({ isFocus: false, chooseIndex: 0 });
+    }
+  }
+
+  public onMouseEnterList = () => {
+    this.setState({isBlurReset: false});
+  }
+
+  public onMouseEnterLeave = () => {
+    this.setState({isBlurReset: true});
   }
 
   public render() {
@@ -136,7 +148,7 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
       inputStyle);
 
     return (
-      <div className="search-input-component">
+      <div className="search-input-component" tabIndex={1} onBlur={this.onBlur}>
         {prefix ? <span className="search-input-component-prefix">{prefix}</span> : null}
         <div className="search-input-component-container">
           <input
@@ -144,11 +156,13 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
             className={inputStyles}
             value={state.inputValue}
             onFocus={this.onFocusInput}
-            onBlur={this.onBlurInput}
             onChange={this.onChangeValue}
             onKeyDown={this.onKeyDown} />
-            {(isLockInputToSearch || verifyValue) && <i className={this.classNames('search-input-component-icon', this.isInputCorrectValue() ? 'correct-icon' : 'error-icon' )}></i>}
-          {state.matchingList.length && state.isFocus ? <ul className="search-input-component-search">
+          {(isLockInputToSearch || verifyValue) && <i className={this.classNames('search-input-component-icon', this.isInputCorrectValue() ? 'correct-icon' : 'error-icon')}></i>}
+          {state.matchingList.length && state.isFocus ?
+          <ul className="search-input-component-search"
+            onMouseEnter={this.onMouseEnterList}
+            onMouseLeave={this.onMouseEnterLeave} >
             {state.matchingList.map((info, index) => {
               return (
                 <li

@@ -15,7 +15,15 @@ export default class EditBlock extends CoreComponent<any, any> {
     return this.trimStr(nameValue);
   }
 
-  public trimStr = (str: string) => {
+  public onConfirm = () => {
+    // verify every input
+  }
+
+  public onChangeValue = (value: string) => {
+    console.log(value);
+  }
+
+  private trimStr = (str: string) => {
     return str.trim();
   }
 
@@ -23,8 +31,8 @@ export default class EditBlock extends CoreComponent<any, any> {
     return (
     <div className="edit-block">
       <div className="title">edit node</div>
-      <div className="input-block name-input">name: <SearchInput verifyValue={this.verifyName} formatInputValue={this.formatName} /> </div>
-      <div className="input-block type-input">type: <SearchInput isLockInputToSearch={true} searchScope={TYPE_LIST}/> </div>
+      <div className="input-block name-input">name: <SearchInput onChangeValue={this.onChangeValue} verifyValue={this.verifyName} formatInputValue={this.formatName} /> </div>
+      <div className="input-block type-input">type: <SearchInput onChangeValue={this.onChangeValue} isLockInputToSearch={true} searchScope={TYPE_LIST}/> </div>
       <div>
         <div className="input-block explain-input">explain: <SearchInput /> </div>
         <div className="input-block example-input">example: <SearchInput /> </div>
@@ -32,7 +40,7 @@ export default class EditBlock extends CoreComponent<any, any> {
       <div className="input-block enum-input">enum: <SearchInput /> </div>
       <div className="input-block parents-input">parents: <SearchInput /> </div>
       <div className="edit-btn-block">
-        <span>confirm</span>
+        <span onClick={this.onConfirm}>confirm</span>
         <span>cancel</span>
       </div>
     </div>);
