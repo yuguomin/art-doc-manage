@@ -7,6 +7,7 @@ import { requestMethods } from '../constant/doc-map';
 import { ISelectItem } from 'client/common/components/select/propsType';
 import SearchInput from 'client/common/components/search-input';
 import FormTable from 'client/common/components/form-table';
+import { IChangeValueInfo } from 'client/common/components/search-input/propsType';
 
 export default class DocFormIndex extends CoreComponentAll<any, any> {
 
@@ -27,7 +28,7 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
     this.setState({ selectMethod: methodInfo.value });
   }
 
-  public changeSearch = (value: string) => {
+  public changeSearch = (value: IChangeValueInfo) => {
     console.log('change', value);
   }
 

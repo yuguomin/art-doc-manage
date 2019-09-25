@@ -8,5 +8,10 @@ export interface ISearchInputProps {
   searchScope: string[];
   verifyValue?: (inputValue: string) => boolean;
   formatInputValue?: (inputValue: string) => string;
-  onChangeValue?: (inputValue: string) => void;
+  onChangeValue?: (changeValueInfo: IChangeValueInfo) => void;
+}
+
+export interface IChangeValueInfo {
+  value: string;
+  isCorrect: boolean;
 }

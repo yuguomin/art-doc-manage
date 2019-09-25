@@ -23,15 +23,10 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
   };
 
   public onChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { formatInputValue, isLockInputToSearch, searchScope } = this.props;
+    const { formatInputValue } = this.props;
     let inputValue = event.target.value;
     if (formatInputValue) {
       inputValue = formatInputValue(inputValue);
-    }
-    if (isLockInputToSearch) {
-      // verify value is in search scope
-      const sameValue = searchScope.find((value) => value.indexOf(inputValue) > -1);
-      if (sameValue === undefined) { return; }
     }
     const matchingList = this.findMatchingList(inputValue);
     this.setState({
@@ -76,9 +71,14 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
   }
 
   public triggerChangeValue = (value: string) => {
-    if (this.props.onChangeValue) {
-      value = this.props.prefix ? this.props.prefix + value : value;
-      this.props.onChangeValue(value);
+    const {onChangeValue, prefix, isLockInputToSearch, verifyValue} = this.props;
+    if (onChangeValue) {
+      value = prefix ? prefix + value : value;
+      let isCorrect = true;
+      if (isLockInputToSearch || verifyValue) {
+        isCorrect = this.isInputCorrectValue();
+      }
+      onChangeValue({value, isCorrect});
     }
   }
 
