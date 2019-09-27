@@ -71,6 +71,18 @@
       // }
       .setCellWidth();
     }
+    .cell-info {
+      box-sizing: border-box;
+      &.bright-cell {
+        // border: 1px solid #2d8cf0;
+        box-shadow: 0 0 2px 1px #2d8cf0;
+      }
+  
+      &:hover {
+        // border: 1px solid #2d8cf0;
+        box-shadow: 0 0 2px 1px #2d8cf0;
+      }
+    }
     .operate-block {
       text-align: center;
       border-right: 1px solid #666;
@@ -89,6 +101,7 @@
     border: 1px solid #e8e8e8;
     border-radius: 100px;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .15);
+    cursor: pointer;
     &::before{
       position: absolute;
       top: (@addBtnWidth - @plusHeight) / 2;

@@ -4,6 +4,12 @@ export interface IFormTableProps {
 
 export interface IBodyCellProps {
   cellDetail: ITableCellDetail;
+  onDeleteCell: (cellIndex: number) => void;
+  cellIndex: number;
+}
+
+export interface IEditBlockProps {
+  title?: string;
 }
 
 export interface ITableCellDetail {

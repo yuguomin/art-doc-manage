@@ -15,15 +15,31 @@ export default class Select extends CoreComponent<IFormTableProps, any> {
         type: 'string',
         explain: '颜色',
         example: '#fff',
-        enum: '1',
+        enum: 'a=1',
         parents: 'data'
       },
       {
-        name: 'color',
-        type: 'string',
+        name: 'text',
+        type: 'boolean',
         explain: '颜色',
         example: '#fff',
-        enum: '1',
+        enum: 'a=1,b=2,c=3,d=4,e=5,f=6',
+        parents: 'data'
+      },
+      {
+        name: 'name',
+        type: 'array',
+        explain: '颜色',
+        example: '#fff',
+        enum: 'a=1,b=2,c=3,d=4,e=5,f=6',
+        parents: 'data.'
+      },
+      {
+        name: 'age',
+        type: 'number',
+        explain: '颜色',
+        example: '#fff',
+        enum: 'a=1,b=2,c=3,d=4,e=5,f=6',
         parents: 'data'
       }
     ] as ITableCellDetail[]
@@ -32,7 +48,10 @@ export default class Select extends CoreComponent<IFormTableProps, any> {
   public componentDidMount() {
   }
 
-  public addBodyCell = () => {
+  public onDeleteCell = (cellIndex: number) => {
+    const tableCellList = this.state.tableCellList;
+    tableCellList.splice(cellIndex, 1);
+    this.setState({ tableCellList });
   }
 
   public render() {
@@ -54,13 +73,13 @@ export default class Select extends CoreComponent<IFormTableProps, any> {
             {
               state.tableCellList.map((value, index) => {
                 return (
-                  <BodyCell className="body-cell" key={index} cellDetail={value} />
+                  <BodyCell onDeleteCell={this.onDeleteCell} cellIndex={index} className="body-cell" key={index + value.name} cellDetail={value} />
                 );
               })
             }
           </div>
         </div>
-        <div onClick={this.addBodyCell} className="form-table-component-add-btn"></div>
+        {/* <div onClick={this.addBodyCell} className="form-table-component-add-btn"></div> */}
       </div>
     );
   }

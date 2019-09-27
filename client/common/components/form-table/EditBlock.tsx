@@ -3,6 +3,7 @@ import CoreComponent from 'art-lib-react/src/core/CoreComponent';
 import SearchInput from '../search-input';
 import './style/edit.block.less';
 import { IChangeValueInfo } from '../search-input/propsType';
+import { IEditBlockProps } from './propsType';
 
 const TYPE_LIST = ['string', 'number', 'int', 'float', 'boolean', 'array', 'array(string)', 'object',
   'array(object)'];
@@ -20,7 +21,7 @@ const NAME_DEFAULT_STATUS = false;
 const TYPE_DEFAULT_STATUS = false;
 const ENUM_DEFAULT_STATUS = true;
 const PARENT_DEFAULT_STATUS = false;
-export default class EditBlock extends CoreComponent<any, any> {
+export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
   public state = {
     nameValue: '',
     nameValueStatus: NAME_DEFAULT_STATUS,
@@ -121,9 +122,11 @@ export default class EditBlock extends CoreComponent<any, any> {
   }
 
   public render() {
+    const { title } = this.props;
+
     return (
       <div className="edit-block">
-        <div className="title">edit node</div>
+        { title && <div className="title">{title}</div>}
         <div className="input-block name-input">
           name:<SearchInput
             onChangeValue={this.onChangeValue.bind(this, ValueType.name)}
