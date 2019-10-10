@@ -10,6 +10,17 @@ export interface IBodyCellProps {
 
 export interface IEditBlockProps {
   title?: string;
+  onCancel: () => void;
+  defaultValue: IDefaultValue;
+}
+
+export interface IDefaultValue {
+  name?: string;
+  type?: string;
+  explain?: string;
+  parents?: string;
+  example?: string;
+  enum?: string;
 }
 
 export interface ITableCellDetail {

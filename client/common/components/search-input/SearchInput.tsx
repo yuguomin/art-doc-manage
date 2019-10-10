@@ -22,6 +22,11 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
     isBlurReset: true
   };
 
+  public componentWillReceiveProps(nextProps) {
+    // console.log(nextProps);
+    this.setState({inputValue: nextProps.defaultValue || ''});
+  }
+
   public onChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { formatInputValue } = this.props;
     let inputValue = event.target.value;

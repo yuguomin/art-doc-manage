@@ -35,6 +35,18 @@ export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
     parentValueStatus: PARENT_DEFAULT_STATUS
   };
 
+  public componentDidMount() {
+    const { name: nameValue,
+      type: typeValue,
+      explain: explainValue,
+      example: exampleValue,
+      enum: enumValue,
+      parents: parentValue } = this.props.defaultValue;
+    this.setState({
+      nameValue, typeValue, explainValue, exampleValue, enumValue, parentValue
+    });
+  }
+
   public verifyName = (nameValue: string) => {
     return this.isLegalVariableName(nameValue);
   }
@@ -59,6 +71,10 @@ export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
   public onConfirm = () => {
     if (!this.isCorrect()) { return; }
     // verify every input
+  }
+
+  public onCancel = () => {
+    this.props.onCancel();
   }
 
   public isCorrect = () => {
@@ -122,13 +138,15 @@ export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
   }
 
   public render() {
+    const state = this.state;
     const { title } = this.props;
 
     return (
       <div className="edit-block">
-        { title && <div className="title">{title}</div>}
+        {title && <div className="title">{title}</div>}
         <div className="input-block name-input">
           name:<SearchInput
+            defaultValue={state.nameValue}
             onChangeValue={this.onChangeValue.bind(this, ValueType.name)}
             verifyValue={this.verifyName}
             formatInputValue={this.formatName}
@@ -168,7 +186,7 @@ export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
         </div>
         <div className="edit-btn-block">
           <span className={`${this.isCorrect() ? '' : 'disable'}`} onClick={this.onConfirm}>confirm</span>
-          <span>cancel</span>
+          <span onClick={this.onCancel}>cancel</span>
         </div>
       </div>);
   }

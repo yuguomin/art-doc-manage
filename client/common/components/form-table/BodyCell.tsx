@@ -8,15 +8,22 @@ export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
   public state = {
     isFocus: false,
     isOpenEdit: false,
-    isOpenAdd: false
+    isOpenAdd: false,
+    editValue: {},
+    addValue: {}
   };
 
   public componentDidMount() {
   }
 
   public onEdit = () => {
-    if (this.state.isOpenAdd || this.state.isOpenEdit) { return; }
+    const state = this.state;
+    if (state.isOpenAdd || state.isOpenEdit) { return; }
     this.setState({ isOpenEdit: true });
+  }
+
+  public cancelEdit = () => {
+    this.setState({ isOpenEdit: false });
   }
 
   public onDel = () => {
@@ -28,15 +35,15 @@ export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
   }
 
   public addCell = () => {
-    this.setState({ isOpenAdd: true });
+    this.setState({ isOpenAdd: !this.state.isOpenAdd });
   }
 
   public onFocus = () => {
-    this.setState({isFocus: true});
+    this.setState({ isFocus: true });
   }
 
   public onBlur = () => {
-    this.setState({isFocus: false});
+    this.setState({ isFocus: false });
   }
 
   public render() {
@@ -69,10 +76,22 @@ export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
             <span tabIndex={2} onClick={this.onDel} onFocus={this.onFocusDel}>del</span>
           </div>
         </div>
-        { state.isOpenEdit && <EditBlock title={'edit node'}></EditBlock> }
-        { (state.isFocus && !state.isOpenEdit) &&
-        <div onClick={this.addCell} className="form-table-component-add-btn"></div> }
-        { state.isOpenAdd && <EditBlock title={'add node'}></EditBlock> }
+        {
+          (state.isFocus && !state.isOpenEdit) &&
+          <div className="add-info-block">
+            <div onClick={this.addCell} className={`form-table-component-add-btn ${state.isOpenAdd ? '' : 'add'}`}></div>
+            {state.isOpenAdd || <div className="default-parent-text">123.123</div>}
+          </div>}
+        {state.isOpenEdit &&
+          <EditBlock
+            defaultValue={state.editValue}
+            onCancel={this.cancelEdit}
+            title={'edit node'} />}
+        {state.isOpenAdd &&
+          <EditBlock
+            defaultValue={state.addValue}
+            onCancel={this.addCell}
+            title={'add node'} />}
       </div>
     );
   }
