@@ -18,6 +18,10 @@ export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
     this.computeNodeEditInfo();
   }
 
+  public componentWillReceiveProps(nextProps) {
+    this.computeNodeEditInfo(nextProps);
+  }
+
   public onEdit = () => {
     const state = this.state;
     if (state.isOpenAdd || state.isOpenEdit) { return; }
@@ -29,7 +33,9 @@ export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
   }
 
   public onConfirmEdit = (value: IDefaultValue) => {
+    this.props.onEditValue(value, this.props.cellIndex);
     this.cancelEdit();
+    // this.computeNodeEditInfo();
   }
 
   public onDel = () => {
@@ -46,6 +52,7 @@ export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
 
   public onConfirmAdd = (value: IDefaultValue) => {
     this.toggleAddStatus();
+    this.props.onAddValue(value, this.props.cellIndex);
     this.onBlur();
   }
 
@@ -57,16 +64,17 @@ export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
     this.setState({ isFocus: false });
   }
 
-  private computeNodeEditInfo = () => {
-    const { cellDetail } = this.props;
-    const childOrder = ['array', 'object', 'array(object)'].includes(cellDetail.type.toLowerCase()) ?
+  private computeNodeEditInfo = (props?: IBodyCellProps) => {
+    props = props || this.props;
+    const { cellDetail } = props;
+    const childOrder = ['array', 'object', 'array(object)'].includes((cellDetail.type || '').toLowerCase()) ?
       `${cellDetail.parents}.${cellDetail.name}` : cellDetail.parents;
-    const addValue = Object.assign(this.props.cellDetail, {parents: childOrder});
+    const addValue = Object.assign({}, { parents: childOrder });
     this.setState({
       childOrder,
-      editValue: this.props.cellDetail,
+      editValue: cellDetail,
       addValue
-     });
+    });
   }
 
   public render() {

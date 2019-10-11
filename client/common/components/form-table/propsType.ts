@@ -6,6 +6,8 @@ export interface IBodyCellProps {
   cellDetail: ITableCellDetail;
   onDeleteCell: (cellIndex: number) => void;
   cellIndex: number;
+  onEditValue: (value: ITableCellDetail, index: number) => void;
+  onAddValue: (value: ITableCellDetail, index: number) => void;
 }
 
 export interface IEditBlockProps {
@@ -25,10 +27,10 @@ export interface IDefaultValue {
 }
 
 export interface ITableCellDetail {
-  name: string;
-  type: string;
-  explain: string;
-  parents: string;
-  example: string;
-  enum: string;
+  name?: string;
+  type?: string;
+  explain?: string;
+  parents?: string;
+  example?: string;
+  enum?: string;
 }

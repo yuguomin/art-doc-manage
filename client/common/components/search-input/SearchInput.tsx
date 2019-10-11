@@ -23,7 +23,7 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
   };
 
   public componentWillReceiveProps(nextProps) {
-    if (this.props.defaultValue !== nextProps.defaultValue ) {
+    if (this.props.defaultValue !== nextProps.defaultValue) {
       this.setState({inputValue: nextProps.defaultValue || ''}, () => {
         if (this.props.onChangeValue) {
           this.triggerChangeValue(this.state.inputValue);

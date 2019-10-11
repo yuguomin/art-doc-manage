@@ -23,7 +23,7 @@ export default class Select extends CoreComponent<IFormTableProps, any> {
         type: 'boolean',
         explain: '颜色',
         example: '#fff',
-        enum: 'a=1,b=2,c=3,d=4,e=5,f=6',
+        enum: 'a=1,b=2,c=3,',
         parents: 'data'
       },
       {
@@ -46,6 +46,19 @@ export default class Select extends CoreComponent<IFormTableProps, any> {
   };
 
   public componentDidMount() {
+  }
+
+  public onEditValue = (value: ITableCellDetail, index: number) => {
+    const tableCellList = this.state.tableCellList;
+    tableCellList[index] = value;
+    this.setState({ tableCellList });
+  }
+
+  public onAddValue = (value: ITableCellDetail, index: number) => {
+    const tableCellList = this.state.tableCellList;
+    // tableCellList[index] = value;
+    tableCellList.splice(index + 1, 0, value);
+    this.setState({ tableCellList });
   }
 
   public onDeleteCell = (cellIndex: number) => {
@@ -73,13 +86,21 @@ export default class Select extends CoreComponent<IFormTableProps, any> {
             {
               state.tableCellList.map((value, index) => {
                 return (
-                  <BodyCell onDeleteCell={this.onDeleteCell} cellIndex={index} className="body-cell" key={index + value.name} cellDetail={value} />
+                  <BodyCell
+                  onEditValue={this.onEditValue}
+                  onAddValue={this.onAddValue}
+                  onDeleteCell={this.onDeleteCell}
+                  cellIndex={index}
+                  className="body-cell"
+                  key={index + (value.name || '')}
+                  cellDetail={value} />
                 );
               })
             }
           </div>
         </div>
-        {/* <div onClick={this.addBodyCell} className="form-table-component-add-btn"></div> */}
+        {/* <div
+        onClick={this.addBodyCell} className="form-table-component-add-btn"></div> */}
       </div>
     );
   }
