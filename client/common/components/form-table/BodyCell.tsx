@@ -1,6 +1,6 @@
 import React from 'react';
 import CoreComponent from 'art-lib-react/src/core/CoreComponent';
-import { IBodyCellProps } from './propsType';
+import { IBodyCellProps, IDefaultValue } from './propsType';
 import EditBlock from './EditBlock';
 
 export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
@@ -10,10 +10,12 @@ export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
     isOpenEdit: false,
     isOpenAdd: false,
     editValue: {},
-    addValue: {}
+    addValue: {},
+    childOrder: ''
   };
 
   public componentDidMount() {
+    this.computeNodeEditInfo();
   }
 
   public onEdit = () => {
@@ -26,6 +28,10 @@ export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
     this.setState({ isOpenEdit: false });
   }
 
+  public onConfirmEdit = (value: IDefaultValue) => {
+    this.cancelEdit();
+  }
+
   public onDel = () => {
     this.props.onDeleteCell(this.props.cellIndex);
   }
@@ -34,8 +40,13 @@ export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
     event.stopPropagation();
   }
 
-  public addCell = () => {
+  public toggleAddStatus = () => {
     this.setState({ isOpenAdd: !this.state.isOpenAdd });
+  }
+
+  public onConfirmAdd = (value: IDefaultValue) => {
+    this.toggleAddStatus();
+    this.onBlur();
   }
 
   public onFocus = () => {
@@ -44,6 +55,18 @@ export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
 
   public onBlur = () => {
     this.setState({ isFocus: false });
+  }
+
+  private computeNodeEditInfo = () => {
+    const { cellDetail } = this.props;
+    const childOrder = ['array', 'object', 'array(object)'].includes(cellDetail.type.toLowerCase()) ?
+      `${cellDetail.parents}.${cellDetail.name}` : cellDetail.parents;
+    const addValue = Object.assign(this.props.cellDetail, {parents: childOrder});
+    this.setState({
+      childOrder,
+      editValue: this.props.cellDetail,
+      addValue
+     });
   }
 
   public render() {
@@ -79,18 +102,20 @@ export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
         {
           (state.isFocus && !state.isOpenEdit) &&
           <div className="add-info-block">
-            <div onClick={this.addCell} className={`form-table-component-add-btn ${state.isOpenAdd ? '' : 'add'}`}></div>
-            {state.isOpenAdd || <div className="default-parent-text">123.123</div>}
+            <div onClick={this.toggleAddStatus} className={`form-table-component-add-btn ${state.isOpenAdd ? '' : 'add'}`}></div>
+            {state.isOpenAdd || <div className="default-parent-text">{state.childOrder}</div>}
           </div>}
         {state.isOpenEdit &&
           <EditBlock
             defaultValue={state.editValue}
+            onConfirm={this.onConfirmEdit}
             onCancel={this.cancelEdit}
             title={'edit node'} />}
         {state.isOpenAdd &&
           <EditBlock
             defaultValue={state.addValue}
-            onCancel={this.addCell}
+            onConfirm={this.onConfirmAdd}
+            onCancel={this.toggleAddStatus}
             title={'add node'} />}
       </div>
     );

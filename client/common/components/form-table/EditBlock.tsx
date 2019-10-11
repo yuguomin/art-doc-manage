@@ -36,7 +36,10 @@ export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
   };
 
   public componentDidMount() {
-    const { name: nameValue,
+  // public componentWillReceiveProps(nextProps) {
+    // console.log('nextProps', nextProps);
+    const {
+      name: nameValue,
       type: typeValue,
       explain: explainValue,
       example: exampleValue,
@@ -70,7 +73,15 @@ export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
 
   public onConfirm = () => {
     if (!this.isCorrect()) { return; }
-    // verify every input
+    const state = this.state;
+    this.props.onConfirm({
+      name: state.nameValue,
+      type: state.typeValue,
+      explain: state.explainValue,
+      parents: state.parentValue,
+      example: state.exampleValue,
+      enum: state.enumValue
+    });
   }
 
   public onCancel = () => {
@@ -154,6 +165,7 @@ export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
         </div>
         <div className="input-block type-input">
           type:<SearchInput
+            defaultValue={state.typeValue}
             onChangeValue={this.onChangeValue.bind(this, ValueType.type)}
             isLockInputToSearch={true}
             searchScope={TYPE_LIST} />
@@ -161,12 +173,14 @@ export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
         <div>
           <div className="input-block explain-input">
             explain:<SearchInput
+              defaultValue={state.explainValue}
               onChangeValue={this.onChangeValue.bind(this, ValueType.explain)}
               verifyValue={this.verifyDefault}
             />
           </div>
           <div className="input-block example-input">
             example:<SearchInput
+              defaultValue={state.exampleValue}
               onChangeValue={this.onChangeValue.bind(this, ValueType.example)}
               verifyValue={this.verifyDefault}
             />
@@ -174,12 +188,14 @@ export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
         </div>
         <div className="input-block enum-input">
           enum:<SearchInput
+            defaultValue={state.enumValue}
             onChangeValue={this.onChangeValue.bind(this, ValueType.enum)}
             verifyValue={this.verifyEnum}
           />
         </div>
         <div className="input-block parents-input">
           parents:<SearchInput
+            defaultValue={state.parentValue}
             onChangeValue={this.onChangeValue.bind(this, ValueType.parent)}
             verifyValue={this.verifyParent}
           />

@@ -23,8 +23,13 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
   };
 
   public componentWillReceiveProps(nextProps) {
-    // console.log(nextProps);
-    this.setState({inputValue: nextProps.defaultValue || ''});
+    if (this.props.defaultValue !== nextProps.defaultValue ) {
+      this.setState({inputValue: nextProps.defaultValue || ''}, () => {
+        if (this.props.onChangeValue) {
+          this.triggerChangeValue(this.state.inputValue);
+        }
+      });
+    }
   }
 
   public onChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,10 +105,10 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
   }
 
   private findMatchingList: (inputValue: string) => string[] = (inputValue) => {
-    inputValue = inputValue.toLocaleLowerCase();
-    if (inputValue.trim() === '') { return []; }
+    const lowerInputValue = inputValue.toLocaleLowerCase();
+    if (lowerInputValue.trim() === '') { return []; }
     const matchingList = this.props.searchScope.filter((value) => {
-      return value.indexOf(inputValue) > -1 && value !== inputValue;
+      return value.indexOf(lowerInputValue) > -1 && value !== inputValue;
     });
     return matchingList;
   }

@@ -11,6 +11,7 @@ export interface IBodyCellProps {
 export interface IEditBlockProps {
   title?: string;
   onCancel: () => void;
+  onConfirm: (result: IDefaultValue) => void;
   defaultValue: IDefaultValue;
 }
 
