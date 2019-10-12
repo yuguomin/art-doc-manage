@@ -64,6 +64,9 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
           <FormTable
             title={'Request Params'}
           />
+          <FormTable
+            title={'Reponse Params'}
+          />
         </div>
       </div>
     );
