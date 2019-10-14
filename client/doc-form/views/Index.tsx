@@ -9,6 +9,8 @@ import SearchInput from 'client/common/components/search-input';
 import FormTable from 'client/common/components/form-table';
 import { IChangeValueInfo } from 'client/common/components/search-input/propsType';
 import { ITableCellDetail } from 'client/common/components/form-table/propsType';
+const marked = require('marked-ast');
+const { toMarkdown } = require('marked-ast-markdown');
 
 export default class DocFormIndex extends CoreComponentAll<any, any> {
 
@@ -44,7 +46,26 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
   }
 
   public createMDFile = () => {
-    console.log(this.state);
+    // const md = readFileSync('../services/interfaces/IBankList.md', 'UTF8');
+    // const tokens = marked.lexer(`### 我`);
+    // console.log(marked.parser(tokens));
+    const ast = marked.parse('#### detail\n| 类别 | 详情xx | 第三个 |\n| ---- | ---- | --- |\n| request-method | GET | x |\n| request-url | /pb/card/list | s |');
+
+    console.log(ast);
+    console.log(toMarkdown(ast));
+    this.downloadFile('a.md', toMarkdown(ast));
+  }
+
+  public downloadFile(fileName, content) {
+    const aLink = document.createElement('a');
+    const blob = new Blob([content]);
+    const evt = document.createEvent('HTMLEvents');
+    evt.initEvent('click', false, false); // initEvent 不加后两个参数在FF下会报错
+    aLink.download = fileName;
+    aLink.href = URL.createObjectURL(blob);
+    aLink.dispatchEvent(evt);
+    // aLink.click();
+    // console.log(document.createEvent);
   }
 
   private verifyUrl = (value) => {

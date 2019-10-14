@@ -6700,6 +6700,19 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+marked-ast-markdown@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/marked-ast-markdown/-/marked-ast-markdown-2.0.1.tgz#3b51e940533de66e279721344339b7c8c656bb59"
+  integrity sha512-c7l2EOCpG/VcaX7OYa2xFtWrGOVz/rL7tLqZL0+eak9Vw3HGBry+qbR9IWccGZiwfgCdWt+HvLSootQIBh/KjA==
+  dependencies:
+    entities "^1.1.1"
+    whisk "^1.0.0"
+
+marked-ast@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/marked-ast/-/marked-ast-0.3.0.tgz#dc119d9109fd0be98e915d1e643b9ea24606daec"
+  integrity sha1-3BGdkQn9C+mOkV0eZDueokYG2uw=
+
 math-random@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/math-random/-/math-random-1.0.4.tgz#5dd6943c938548267016d4e34f057583080c514c"
@@ -10731,6 +10744,11 @@ which@^1.2.9:
   integrity sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==
   dependencies:
     isexe "^2.0.0"
+
+whisk@^1.0.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/whisk/-/whisk-1.4.0.tgz#c3fe50b0f585ba73d5915da477c6735c135e8811"
+  integrity sha512-uh4+hibHa+HxUTUwpP9iiAgyniVB4UBbI6QK2feiv1U9t6PSS32hl/xeAmf0RZhHKXVn3nnNQiju1RzBYVclCg==
 
 wide-align@^1.1.0:
   version "1.1.3"
