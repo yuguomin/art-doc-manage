@@ -8,6 +8,7 @@ import { ISelectItem } from 'client/common/components/select/propsType';
 import SearchInput from 'client/common/components/search-input';
 import FormTable from 'client/common/components/form-table';
 import { IChangeValueInfo } from 'client/common/components/search-input/propsType';
+import { ITableCellDetail } from 'client/common/components/form-table/propsType';
 
 export default class DocFormIndex extends CoreComponentAll<any, any> {
 
@@ -18,8 +19,10 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
 
   public state = {
     selectMethodsList: requestMethods,
-    selectMethod: '',
-    defaultMethod: 'get'
+    selectMethod: 'get',
+    // defaultMethod: 'get',
+    requestList: [] as ITableCellDetail[],
+    responseList: [] as ITableCellDetail[]
   };
 
   public indexService: IndexService;
@@ -29,7 +32,24 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
   }
 
   public changeSearch = (value: IChangeValueInfo) => {
-    console.log('change', value);
+    // console.log('change', value);
+  }
+
+  public getRequestList = (requestList: ITableCellDetail[]) => {
+    this.setState({ requestList });
+  }
+
+  public getResponseList = (responseList: ITableCellDetail[]) => {
+    this.setState({ responseList });
+  }
+
+  public createMDFile = () => {
+    console.log(this.state);
+  }
+
+  private verifyUrl = (value) => {
+    const urlPathReg = /^(\/[a-zA-Z0-9\-_%]+)+$/;
+    return urlPathReg.test(value);
   }
 
   public render() {
@@ -50,24 +70,27 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
                 disable={false}
                 selectList={state.selectMethodsList}
                 onClickItem={this.chooseMethod} /> */}
-              <SearchInput prefix={'/'} isLockInputToSearch={true} searchScope={['abc', 'ddd', 'ced', 'fgq']} onChangeValue={this.changeSearch} />
+              <SearchInput prefix={'/'} verifyValue={this.verifyUrl} onChangeValue={this.changeSearch} />
             </div>
             <div className="detail-item">
               <span>Method:</span>
               <Select
-                defaultValue={state.defaultMethod}
+                defaultValue={state.selectMethod}
                 disable={false}
                 selectList={state.selectMethodsList}
                 onClickItem={this.chooseMethod} />
             </div>
           </div>
           <FormTable
+            onChangeList={this.getRequestList}
             title={'Request Params'}
           />
           <FormTable
+            onChangeList={this.getResponseList}
             title={'Reponse Params'}
           />
         </div>
+        <div className="create-btn" onClick={this.createMDFile}>create</div>
       </div>
     );
   }

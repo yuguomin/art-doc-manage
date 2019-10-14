@@ -56,7 +56,7 @@ export default class Select extends CoreComponent<IFormTableProps, any> {
   public onEditValue = (value: ITableCellDetail, index: number) => {
     const tableCellList = this.state.tableCellList;
     tableCellList[index] = value;
-    this.setState({ tableCellList });
+    this.onChangeList(tableCellList);
   }
 
   public onAddValue = (value: ITableCellDetail, index: number = 0) => {
@@ -64,13 +64,19 @@ export default class Select extends CoreComponent<IFormTableProps, any> {
     const tableCellList = this.state.tableCellList;
     // tableCellList[index] = value;
     tableCellList.splice(index + 1, 0, value);
-    this.setState({ tableCellList });
+    this.onChangeList(tableCellList);
   }
 
   public onDeleteCell = (cellIndex: number) => {
     const tableCellList = this.state.tableCellList;
     tableCellList.splice(cellIndex, 1);
     this.setState({ tableCellList });
+  }
+
+  public onChangeList = (tableCellList: ITableCellDetail[]) => {
+    this.setState({ tableCellList }, () => {
+      this.props.onChangeList(tableCellList);
+    });
   }
 
   public toggleAddFirstStatus = () => {

@@ -99,7 +99,8 @@ export default class SearchInput extends CoreComponent<ISearchInputProps, any> {
       return Boolean(sameValue);
     }
     if (verifyValue) {
-      return verifyValue(this.state.inputValue);
+      const prefix = this.props.prefix || '';
+      return verifyValue(prefix + this.state.inputValue);
     }
     return false;
   }

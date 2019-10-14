@@ -1,5 +1,6 @@
 export interface IFormTableProps {
   title?: string;
+  onChangeList: (ITableCellDetail: ITableCellDetail[]) => void;
 }
 
 export interface IBodyCellProps {
