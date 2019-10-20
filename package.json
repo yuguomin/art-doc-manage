@@ -13,11 +13,11 @@
     "art-webpack": "^0.0.42",
     "less": "3.8.1",
     "marked-ast": "^0.3.0",
-    "marked-ast-markdown": "^2.0.1",
     "react": "16.4.2",
     "react-dom": "16.4.2",
     "react-loadable": "5.5.0",
-    "react-router-dom": "4.3.1"
+    "react-router-dom": "4.3.1",
+    "marked-ast-markdown": "https://github.com/yuguomin/marked-ast-markdown.git"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",

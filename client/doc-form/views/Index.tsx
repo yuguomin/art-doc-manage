@@ -9,8 +9,8 @@ import SearchInput from 'client/common/components/search-input';
 import FormTable from 'client/common/components/form-table';
 import { IChangeValueInfo } from 'client/common/components/search-input/propsType';
 import { ITableCellDetail } from 'client/common/components/form-table/propsType';
-const marked = require('marked-ast');
-const { toMarkdown } = require('marked-ast-markdown');
+import marked from 'marked-ast';
+import { toMarkdown } from 'marked-ast-markdown';
 
 export default class DocFormIndex extends CoreComponentAll<any, any> {
 
@@ -49,7 +49,13 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
     // const md = readFileSync('../services/interfaces/IBankList.md', 'UTF8');
     // const tokens = marked.lexer(`### 我`);
     // console.log(marked.parser(tokens));
-    const ast = marked.parse('#### detail\n| 类别 | 详情xx | 第三个 |\n| ---- | ---- | --- |\n| request-method | GET | x |\n| request-url | /pb/card/list | s |');
+    const ast = marked.parse(`
+#### detail
+
+| 类别 | 详情1 | 第三个 |
+| -- | ---- | --- |
+| request-method | GET | x |
+| request-url | /pb/card/list | s |`);
 
     console.log(ast);
     console.log(toMarkdown(ast));

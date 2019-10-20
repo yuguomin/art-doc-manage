@@ -6700,10 +6700,9 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-marked-ast-markdown@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/marked-ast-markdown/-/marked-ast-markdown-2.0.1.tgz#3b51e940533de66e279721344339b7c8c656bb59"
-  integrity sha512-c7l2EOCpG/VcaX7OYa2xFtWrGOVz/rL7tLqZL0+eak9Vw3HGBry+qbR9IWccGZiwfgCdWt+HvLSootQIBh/KjA==
+"marked-ast-markdown@https://github.com/yuguomin/marked-ast-markdown.git":
+  version "1.0.0"
+  resolved "https://github.com/yuguomin/marked-ast-markdown.git#7c9c5f813dc781358ff224bb1c2a0e818e23b296"
   dependencies:
     entities "^1.1.1"
     whisk "^1.0.0"
