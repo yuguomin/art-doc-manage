@@ -10,6 +10,7 @@ import FormTable from 'client/common/components/form-table';
 import { IChangeValueInfo } from 'client/common/components/search-input/propsType';
 import { ITableCellDetail } from 'client/common/components/form-table/propsType';
 import MDTool from 'marked-ast';
+import MDHandle from '../help/createMDAST';
 
 export default class DocFormIndex extends CoreComponentAll<any, any> {
 
@@ -51,58 +52,20 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
   }
 
   public createMDFile = () => {
-    // const md = readFileSync('../services/interfaces/IBankList.md', 'UTF8');
-    // const tokens = marked.lexer(`### 我`);
-    // console.log(marked.parser(tokens));
-    const ast = MDTool.MD2AST(`
-1. 用户银行卡列表获取接口
-
-  #### detail
-
-  | 类别 | 详情 |
-  | --- | --- |
-  | request-method | GET |
-  | request-url | /pb/card/list |
-
-  #### params
-
-  | 参数名    | 类型  | 说明     | 示例 | 值选项 | rename |
-  | --------- | ----- | -------- | ---- | --- | --- |
-
-  #### explain
-
-  | 参数名           | 类型      | 说明                 | parents | 示例  | 值选项 | rename |
-  | --------------- | --------- | ------------------- | ------- | ---- | ----- | ------ |
-  | bank_list       | object    | 银行卡列表           | data | | | |
-  | card_id| string |  | data.bank_list| | | |
-  | customer_id| string | 用户ID | data.bank_list| | | |
-  | card_num| string | 银行卡号 | data.bank_list| | | |
-  | card_short_num| string | 卡号后四位 | data.bank_list| | | |
-  | card_type| int | 卡片类型(1信用卡 2储蓄卡) | data.bank_list| 1 | credit_card:1,debit_card:2 | |
-
-2. 用户银行卡列表获取接口
-
-  #### detail
-
-  | 类别 | 详情 |
-  | --- | --- |
-  | request-method | GET |
-  | request-url | /pb/card/listtttt |
-
-  #### params
-
-  | 参数名    | 类型  | 说明     | 示例 | 值选项 | rename |
-  | --------- | ----- | -------- | ---- | --- | --- |
-
-  #### explain
-
-  | 参数名           | 类型      | 说明                 | parents | 示例  | 值选项 | rename |
-  | --------------- | --------- | ------------------- | ------- | ---- | ----- | ------ |
-  | bank_list       | object    | 银行卡列表           | data | | | |
-  | card_id| string |  | data.bank_list| | | |
-    `);
-    console.log(ast);
-    this.downloadFile('a.md', MDTool.AST2MD(ast));
+    const {
+      selectMethod: method,
+      urlValue: url,
+      descriptionValue: description,
+      requestList,
+      responseList
+    } = this.state;
+    const ast = new MDHandle({
+      method, url, description, requestList, responseList
+    });
+    // console.log(ast.getAST());
+    console.log(MDTool.AST2HTML(ast.getAST()));
+    // console.log(ast);
+    // this.downloadFile('a.md', MDTool.AST2MD(ast.getAST()));
   }
 
   public downloadFile(fileName, content) {
@@ -135,11 +98,16 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
           <div className="detail-block">
             <div className="detail-item">
               <span>Description:</span>
-              <SearchInput verifyValue={this.verifyDescription} onChangeValue={this.changeDescription} />
+              <SearchInput
+              verifyValue={this.verifyDescription}
+              onChangeValue={this.changeDescription} />
             </div>
             <div className="detail-item">
               <span>URL:</span>
-              <SearchInput prefix={'/'} verifyValue={this.verifyUrl} onChangeValue={this.changeUrl} />
+              <SearchInput
+              prefix={'/'}
+              verifyValue={this.verifyUrl}
+              onChangeValue={this.changeUrl} />
             </div>
             <div className="detail-item">
               <span>Method:</span>
@@ -159,7 +127,7 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
             title={'Reponse Params'}
           />
         </div>
-        <div className="create-btn" onClick={this.createMDFile}>create</div>
+        <div className="create-btn"onClick={this.createMDFile}>create</div>
       </div>
     );
   }
