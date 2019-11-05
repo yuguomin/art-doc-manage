@@ -1,0 +1,7 @@
+[
+  {
+    "entry": "client/doc-form/services/api-docs/IBankList.md",
+    "output": "client/doc-form/services/interfaces/IBankList.ts",
+    "md5": "072e5a713fcd0005f18510d980919e6f"
+  }
+]

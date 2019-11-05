@@ -4,7 +4,6 @@ import './style/select.less';
 import { ISelectProps, ISelectItem } from './propsType';
 
 export default class Select extends CoreComponent<ISelectProps, any> {
-
   public state = {
     isOpen: false,
     selectValue: '',
@@ -55,7 +54,7 @@ export default class Select extends CoreComponent<ISelectProps, any> {
 
     return (
       <div className="select-component">
-        <div tabIndex={1} onFocus={this.toggleSelect} onBlur={this.onBlur} className={inputStyles} style={inputStyle}>{state.selectValue}
+        <div tabIndex={1} onClick={this.toggleSelect} onBlur={this.onBlur} className={inputStyles} style={inputStyle}>{state.selectValue}
           {disable ? null : <i className={this.classNames('select-component-icon-arrow', state.isOpen ? 'rotate-up' : 'rotate-down')}></i>}
         </div>
         <ul className={this.classNames('select-component-list', state.isOpen ? 'slide-down' : 'slide-up')} >

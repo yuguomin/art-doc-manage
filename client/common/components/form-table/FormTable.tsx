@@ -60,7 +60,6 @@ export default class Select extends CoreComponent<IFormTableProps, any> {
   }
 
   public onAddValue = (value: ITableCellDetail, index: number = 0) => {
-    console.log(value, index);
     const tableCellList = this.state.tableCellList;
     // tableCellList[index] = value;
     tableCellList.splice(index + 1, 0, value);
