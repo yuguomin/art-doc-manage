@@ -7,7 +7,7 @@ import EditBlock from './EditBlock';
 
 const TableCellType = ['Name', 'Type', 'Explain', 'Example', 'Enum', 'Parents', 'operate'];
 
-export default class Select extends CoreComponent<IFormTableProps, any> {
+export default class FormTable extends CoreComponent<IFormTableProps, any> {
 
   public state = {
     addFirstStatus: false,

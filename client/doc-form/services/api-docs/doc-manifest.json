@@ -2,6 +2,11 @@
   {
     "entry": "client/doc-form/services/api-docs/IBankList.md",
     "output": "client/doc-form/services/interfaces/IBankList.ts",
-    "md5": "072e5a713fcd0005f18510d980919e6f"
+    "md5": "b30b4b702874d55e63461c50613facf3"
+  },
+  {
+    "entry": "client/doc-form/services/api-docs/ITest.md",
+    "output": "client/doc-form/services/interfaces/ITest.ts",
+    "md5": "8b51197ec41fe998c54274e90486e518"
   }
 ]

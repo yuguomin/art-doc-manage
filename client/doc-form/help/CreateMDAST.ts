@@ -9,6 +9,7 @@ export default class MDHandle extends CreateMDNode {
   }
 
   private ASTRoot: any[];
+  private MD: any;
 
   private createAST = (MDDetail: IAPIMDFormat) => {
     this.ASTRoot = [];
@@ -17,7 +18,10 @@ export default class MDHandle extends CreateMDNode {
     this.ASTRoot.push(this.createTable(['类别', '详情'], [['request-method', MDDetail.method], ['request-url', MDDetail.url]]));
     this.ASTRoot.push(this.createHeader(4, 'params'));
     this.ASTRoot.push(this.createTable(['参数名', '类型', '说明', 'parents', '示例', '值选项', 'rename'],
-    MDDetail.requestList.map((value) => Object.values(value))));
+    MDDetail.requestList.map((value) => Object.values(value))), ['']);
+    this.ASTRoot.push(this.createHeader(4, 'explain'));
+    this.ASTRoot.push(this.createTable(['参数名', '类型', '说明', 'parents', '示例', '值选项', 'rename'],
+    MDDetail.responseList.map((value) => Object.values(value))), ['']);
   }
 
   private AST2MD = () => {
@@ -29,7 +33,7 @@ export default class MDHandle extends CreateMDNode {
   }
 
   public getMD = () => {
-
+    return this.MD;
   }
 }
 

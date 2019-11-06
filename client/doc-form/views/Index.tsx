@@ -11,6 +11,7 @@ import { IChangeValueInfo } from 'client/common/components/search-input/propsTyp
 import { ITableCellDetail } from 'client/common/components/form-table/propsType';
 import MDTool from 'marked-ast';
 import MDHandle from '../help/createMDAST';
+import Textarea from 'client/common/components/textarea';
 
 export default class DocFormIndex extends CoreComponentAll<any, any> {
 
@@ -63,9 +64,9 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
       method, url, description, requestList, responseList
     });
     // console.log(ast.getAST());
-    console.log(MDTool.AST2HTML(ast.getAST()));
+    console.log(ast.getAST());
     // console.log(ast);
-    // this.downloadFile('a.md', MDTool.AST2MD(ast.getAST()));
+    this.downloadFile('a.md', MDTool.AST2MD(ast.getAST()));
   }
 
   public downloadFile(fileName, content) {
@@ -126,6 +127,7 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
             onChangeList={this.getResponseList}
             title={'Reponse Params'}
           />
+          <Textarea title="example"/>
         </div>
         <div className="create-btn"onClick={this.createMDFile}>create</div>
       </div>

@@ -5,7 +5,7 @@
 | 类别 | 详情 |
 | --- | --- |
 | request-method | GET |
-| request-url | /pb/card/list |
+| request-url | /pb/card/list-one |
 
 #### params
 

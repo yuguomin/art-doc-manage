@@ -74,7 +74,7 @@ export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
   public onConfirm = () => {
     if (!this.isCorrect()) { return; }
     const state = this.state;
-    // 这个顺序很重要
+    // 这个顺序很重要 应该关联
     this.props.onConfirm({
       name: state.nameValue,
       type: state.typeValue,
@@ -140,6 +140,7 @@ export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
   }
 
   private isEnumStructure = (str: string) => {
+    // off=1,on=0
     const enumValueReg = /^([a-zA-Z\$_][a-zA-Z\d_]*=['"]?[\d\w$]+['"]?,?)+$/;
     return enumValueReg.test(str);
   }

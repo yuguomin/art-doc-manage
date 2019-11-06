@@ -23,12 +23,12 @@ export default class CreateMDNode {
     };
   }
 
-  protected createTable = (headerList: string[], bodyList: string[][]) => {
+  protected createTable = (headerList: string[], bodyList: string[][], suffixArr: string[] = []) => {
     return {
       type: 'table',
       header: [this.createTableRow(headerList)],
       body: bodyList.map((value) => {
-        return this.createTableRow(value);
+        return this.createTableRow([...value, ...suffixArr]);
       })
     };
   }
