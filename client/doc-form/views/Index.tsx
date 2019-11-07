@@ -12,6 +12,7 @@ import { ITableCellDetail } from 'client/common/components/form-table/propsType'
 import MDTool from 'marked-ast';
 import MDHandle from '../help/createMDAST';
 import Textarea from 'client/common/components/textarea';
+import { IJSONValue } from 'client/common/components/textarea/propsType';
 
 export default class DocFormIndex extends CoreComponentAll<any, any> {
 
@@ -27,7 +28,8 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
     urlValue: '',
     descriptionValue: '',
     requestList: [] as ITableCellDetail[],
-    responseList: [] as ITableCellDetail[]
+    responseList: [] as ITableCellDetail[],
+    JSONText: ''
   };
 
   public indexService: IndexService;
@@ -58,18 +60,20 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
       urlValue: url,
       descriptionValue: description,
       requestList,
-      responseList
+      responseList,
+      JSONText
     } = this.state;
     const ast = new MDHandle({
-      method, url, description, requestList, responseList
+      method, url, description, requestList, responseList, JSONText
     });
     // console.log(ast.getAST());
     console.log(ast.getAST());
     // console.log(ast);
+    // console.log(MDTool.MD2AST('#### example\n```json\n{"code": 0,\n"msg": "用户卡列表"\n}```'));
     this.downloadFile('a.md', MDTool.AST2MD(ast.getAST()));
   }
 
-  public downloadFile(fileName, content) {
+  public downloadFile = (fileName, content) => {
     const aLink = document.createElement('a');
     const blob = new Blob([content]);
     const evt = document.createEvent('HTMLEvents');
@@ -81,6 +85,10 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
     // console.log(document.createEvent);
   }
 
+  public changeJSONText = (value: IJSONValue) => {
+    this.setState({JSONText: value.value});
+  }
+
   private verifyUrl = (value) => {
     const urlPathReg = /^(\/[a-zA-Z0-9\-_%]+)+$/;
     return urlPathReg.test(value);
@@ -88,6 +96,17 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
 
   private verifyDescription = (value) => {
     return Boolean(value.trim());
+  }
+
+  private verifyJSON = (value) => {
+    try {
+      if (typeof JSON.parse(value) === 'object') {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
   }
 
   public render() {
@@ -100,15 +119,15 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
             <div className="detail-item">
               <span>Description:</span>
               <SearchInput
-              verifyValue={this.verifyDescription}
-              onChangeValue={this.changeDescription} />
+                verifyValue={this.verifyDescription}
+                onChangeValue={this.changeDescription} />
             </div>
             <div className="detail-item">
               <span>URL:</span>
               <SearchInput
-              prefix={'/'}
-              verifyValue={this.verifyUrl}
-              onChangeValue={this.changeUrl} />
+                prefix={'/'}
+                verifyValue={this.verifyUrl}
+                onChangeValue={this.changeUrl} />
             </div>
             <div className="detail-item">
               <span>Method:</span>
@@ -127,9 +146,12 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
             onChangeList={this.getResponseList}
             title={'Reponse Params'}
           />
-          <Textarea title="example"/>
+          <Textarea
+            onChangeValue={this.changeJSONText}
+            verifyValue={this.verifyJSON}
+            title="example" />
         </div>
-        <div className="create-btn"onClick={this.createMDFile}>create</div>
+        <div className="create-btn" onClick={this.createMDFile}>create</div>
       </div>
     );
   }

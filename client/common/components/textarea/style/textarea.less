@@ -1,4 +1,15 @@
 .textarea-component {
+  @keyframes errorBorder {
+    0% {
+      border-color: red;
+    }
+    50% {
+      border-color: #dddee1;
+    }
+    100% {
+      border-color: red;
+    }
+  }
   &-title {
     font-size: 24px;
     color: #262626;
@@ -7,6 +18,13 @@
     width: 100%;
     height: 200px;
     resize: none;
+    border: 1px solid #dddee1;
     border-radius: 5px;
+    &.error {
+      animation: errorBorder 2s infinite;
+    }
+    &.right {
+      border-color: #04be02;
+    }
   }
 }

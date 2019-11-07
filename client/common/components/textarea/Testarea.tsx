@@ -5,11 +5,19 @@ import { ITextareaProps } from './propsType';
 
 export default class Textarea extends CoreComponent<ITextareaProps, any> {
 
+  public static defaultProps = {
+    defaultValue: ''
+  };
+
   public state = {
     value: ''
   };
 
   private textarea;
+
+  public componentDidMount() {
+    this.setState({value: this.props.defaultValue});
+  }
 
   private getTextarea = (node) => {
     if (node) {
@@ -19,9 +27,7 @@ export default class Textarea extends CoreComponent<ITextareaProps, any> {
 
   public onChangeValue = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     // console.dir(event.target.value);
-    const startIndex = this.textarea.selectionStart;
-    console.log(startIndex);
-    this.setState({ value: event.target.value });
+    this.emitChangeValue(event.target.value);
     // this.textarea.setSelectionRange(startIndex - 5, startIndex + 3);
   }
 
@@ -29,12 +35,40 @@ export default class Textarea extends CoreComponent<ITextareaProps, any> {
     if (event.keyCode === 9) {
       event.preventDefault();
       const startIndex = this.textarea.selectionStart;
-      this.setState({ value: this.state.value.slice(0, startIndex) + '  ' + this.state.value.slice(startIndex) });
+      this.emitChangeValue(this.state.value.slice(0, startIndex) + '  ' + this.state.value.slice(startIndex));
       // var range = textDom.createTextRange();
       setTimeout(() => {
         this.textarea.setSelectionRange(startIndex + 2, startIndex + 2);
       }, 0);
     }
+  }
+
+  public emitChangeValue = (value) => {
+    this.setState({ value }, () => {
+      if (this.props.onChangeValue) {
+        const valueInfo = {
+          value,
+          isCorrect: this.verifyValue()
+        };
+        this.props.onChangeValue(valueInfo);
+      }
+    });
+  }
+
+  public verifyValue = () => {
+    if (this.props.verifyValue) {
+      return this.props.verifyValue(this.state.value);
+    }
+    return true;
+  }
+
+  private getTextareaClass = () => {
+    const { verifyValue } = this.props;
+    let textareaClass = 'textarea-component-area';
+    if (verifyValue) {
+      textareaClass += ` ${this.verifyValue() ? 'right' : 'error'}`;
+    }
+    return textareaClass;
   }
 
   public render() {
@@ -49,7 +83,7 @@ export default class Textarea extends CoreComponent<ITextareaProps, any> {
           onKeyDown={this.onKeyDown}
           value={state.value}
           onChange={this.onChangeValue}
-          className="textarea-component-area"
+          className={this.getTextareaClass()}
         />
       </div>
     );
