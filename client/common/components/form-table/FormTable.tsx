@@ -5,7 +5,8 @@ import { IFormTableProps, ITableCellDetail } from './propsType';
 import BodyCell from './BodyCell';
 import EditBlock from './EditBlock';
 
-const TableCellType = ['Name', 'Type', 'Explain', 'Example', 'Enum', 'Parents', 'operate'];
+// const TableCellType = ['Name', 'Type', 'Explain', 'Example', 'Enum', 'Parents', 'operate'];
+const TableCellType = ['参数名', '类型', '参数说明', '示例', '枚举', '节点', '操作'];
 
 export default class FormTable extends CoreComponent<IFormTableProps, any> {
 

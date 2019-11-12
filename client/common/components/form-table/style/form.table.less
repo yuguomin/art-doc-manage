@@ -8,26 +8,26 @@
       width: 10%;
     }
     &:nth-of-type(2) {
-      width: 10%;
+      width: 11%;
     }
     &:nth-of-type(3) {
-      width: 20%;
+      width: 15%;
     }
     &:nth-of-type(4) {
-      width: 15%;
+      width: 14%;
     }
     &:nth-of-type(5) {
-      width: 20%;
+      width: 22%;
     }
     &:nth-of-type(6) {
-      width: 15%;
+      width: 18%;
     }
     &:nth-of-type(7) {
       width: 10%;
     }
   }
   &-title {
-    font-size: 24px;
+    font-size: 16px;
     color: #262626;
   }
   &-block {
@@ -41,8 +41,8 @@
     .header-cell {
       display: inline-block;
       box-sizing: border-box;
-      padding: 8px;
-      height: 46px;
+      padding: 6px 4px;
+      height: 42px;
       line-height: 28px;
       text-align: center;
       border: 1px solid #666;
@@ -59,8 +59,8 @@
     .body-cell {
       display: inline-block;
       box-sizing: border-box;
-      padding: 8px;
-      height: 45px;
+      padding: 6px;
+      height: 41px;
       line-height: 28px;
       border: 1px solid #666;
       // border-top: none;
@@ -70,6 +70,7 @@
       // &:last-of-type() {
       //   border-right: 1px solid #666;
       // }
+      text-align: center;
       .setCellWidth();
     }
     .cell-info {
@@ -88,7 +89,9 @@
       text-align: center;
       border-right: 1px solid #666;
       span {
-        margin-right: 5px;
+        display: inline-block;
+        width: 50%;
+        // margin-right: 5px;
         text-decoration: underline;
         cursor: pointer;
       }

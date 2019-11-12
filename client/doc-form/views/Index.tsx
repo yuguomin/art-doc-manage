@@ -55,22 +55,12 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
   }
 
   public createMDFile = () => {
-    const {
-      selectMethod: method,
-      urlValue: url,
-      descriptionValue: description,
-      requestList,
-      responseList,
-      JSONText
-    } = this.state;
-    const ast = new MDHandle({
-      method, url, description, requestList, responseList, JSONText
-    });
+    const MDHandleClass = this.getMDHandleClass();
     // console.log(ast.getAST());
-    console.log(ast.getAST());
+    console.log(MDHandleClass.getAST());
     // console.log(ast);
     // console.log(MDTool.MD2AST('#### example\n```json\n{"code": 0,\n"msg": "用户卡列表"\n}```'));
-    this.downloadFile('a.md', MDTool.AST2MD(ast.getAST()));
+    this.downloadFile('a.md', MDTool.AST2MD(MDHandleClass.getAST()));
   }
 
   public downloadFile = (fileName, content) => {
@@ -85,8 +75,26 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
     // console.log(document.createEvent);
   }
 
+  private getMDHandleClass = () => {
+    const {
+      selectMethod: method,
+      urlValue: url,
+      descriptionValue: description,
+      requestList,
+      responseList,
+      JSONText
+    } = this.state;
+    return new MDHandle({
+      method, url, description, requestList, responseList, JSONText
+    });
+  }
+
+  public getResultEle = () => {
+    return this.getMDHandleClass().getMD();
+  }
+
   public changeJSONText = (value: IJSONValue) => {
-    this.setState({JSONText: value.value});
+    this.setState({ JSONText: value.value });
   }
 
   private verifyUrl = (value) => {
@@ -114,42 +122,45 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
     return (
       <div className="doc-form-page">
         <TopNav />
-        <div className="form-block">
-          <div className="detail-block">
-            <div className="detail-item">
-              <span>Description:</span>
-              <SearchInput
-                verifyValue={this.verifyDescription}
-                onChangeValue={this.changeDescription} />
+        <div className="doc-form-container">
+          <div className="form-block">
+            <div className="detail-block">
+              <div className="detail-item">
+                <span>接口描述:</span>
+                <SearchInput
+                  verifyValue={this.verifyDescription}
+                  onChangeValue={this.changeDescription} />
+              </div>
+              <div className="detail-item">
+                <span>请求路径:</span>
+                <SearchInput
+                  prefix={'/'}
+                  verifyValue={this.verifyUrl}
+                  onChangeValue={this.changeUrl} />
+              </div>
+              <div className="detail-item">
+                <span>请求方法:</span>
+                <Select
+                  defaultValue={state.selectMethod}
+                  disable={false}
+                  selectList={state.selectMethodsList}
+                  onClickItem={this.chooseMethod} />
+              </div>
             </div>
-            <div className="detail-item">
-              <span>URL:</span>
-              <SearchInput
-                prefix={'/'}
-                verifyValue={this.verifyUrl}
-                onChangeValue={this.changeUrl} />
-            </div>
-            <div className="detail-item">
-              <span>Method:</span>
-              <Select
-                defaultValue={state.selectMethod}
-                disable={false}
-                selectList={state.selectMethodsList}
-                onClickItem={this.chooseMethod} />
-            </div>
+            <FormTable
+              onChangeList={this.getRequestList}
+              title={'请求参数'}
+            />
+            <FormTable
+              onChangeList={this.getResponseList}
+              title={'响应参数'}
+            />
+            <Textarea
+              onChangeValue={this.changeJSONText}
+              verifyValue={this.verifyJSON}
+              title="JSON示例" />
           </div>
-          <FormTable
-            onChangeList={this.getRequestList}
-            title={'Request Params'}
-          />
-          <FormTable
-            onChangeList={this.getResponseList}
-            title={'Reponse Params'}
-          />
-          <Textarea
-            onChangeValue={this.changeJSONText}
-            verifyValue={this.verifyJSON}
-            title="example" />
+          <div className="result-show-frame" dangerouslySetInnerHTML = {{ __html: this.getResultEle() }}></div>
         </div>
         <div className="create-btn" onClick={this.createMDFile}>create</div>
       </div>

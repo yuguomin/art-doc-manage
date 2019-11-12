@@ -103,8 +103,8 @@ export default class BodyCell extends CoreComponent<IBodyCellProps, any> {
             {cellDetail.parents}
           </div>
           <div className={`operate-block ${className}`}>
-            <span onClick={this.onEdit}>edit</span>
-            <span tabIndex={2} onClick={this.onDel} onFocus={this.onFocusDel}>del</span>
+            <span onClick={this.onEdit}>编辑</span>
+            <span tabIndex={2} onClick={this.onDel} onFocus={this.onFocusDel}>删除</span>
           </div>
         </div>
         {

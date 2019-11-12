@@ -158,7 +158,7 @@ export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
       <div className="edit-block">
         {title && <div className="title">{title}</div>}
         <div className="input-block name-input">
-          name:<SearchInput
+          参数名:<SearchInput
             defaultValue={state.nameValue}
             onChangeValue={this.onChangeValue.bind(this, ValueType.name)}
             verifyValue={this.verifyName}
@@ -166,7 +166,7 @@ export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
           />
         </div>
         <div className="input-block type-input">
-          type:<SearchInput
+          类型:<SearchInput
             defaultValue={state.typeValue}
             onChangeValue={this.onChangeValue.bind(this, ValueType.type)}
             isLockInputToSearch={true}
@@ -174,14 +174,14 @@ export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
         </div>
         <div>
           <div className="input-block explain-input">
-            explain:<SearchInput
+            说明:<SearchInput
               defaultValue={state.explainValue}
               onChangeValue={this.onChangeValue.bind(this, ValueType.explain)}
               verifyValue={this.verifyDefault}
             />
           </div>
           <div className="input-block example-input">
-            example:<SearchInput
+            示例:<SearchInput
               defaultValue={state.exampleValue}
               onChangeValue={this.onChangeValue.bind(this, ValueType.example)}
               verifyValue={this.verifyDefault}
@@ -189,22 +189,22 @@ export default class EditBlock extends CoreComponent<IEditBlockProps, any> {
           </div>
         </div>
         <div className="input-block enum-input">
-          enum:<SearchInput
+          枚举:<SearchInput
             defaultValue={state.enumValue}
             onChangeValue={this.onChangeValue.bind(this, ValueType.enum)}
             verifyValue={this.verifyEnum}
           />
         </div>
         <div className="input-block parents-input">
-          parents:<SearchInput
+          节点:<SearchInput
             defaultValue={state.parentValue}
             onChangeValue={this.onChangeValue.bind(this, ValueType.parent)}
             verifyValue={this.verifyParent}
           />
         </div>
         <div className="edit-btn-block">
-          <span className={`${this.isCorrect() ? '' : 'disable'}`} onClick={this.onConfirm}>confirm</span>
-          <span onClick={this.onCancel}>cancel</span>
+          <span className={`${this.isCorrect() ? '' : 'disable'}`} onClick={this.onConfirm}>保存</span>
+          <span onClick={this.onCancel}>取消</span>
         </div>
       </div>);
   }

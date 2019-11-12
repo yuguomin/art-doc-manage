@@ -4,10 +4,14 @@ html {
   }
 }
 .doc-form-page {
-  .form-block {
-    max-width: 1020px;
+  .doc-form-container {
+    max-width: 1300px;
     margin: auto;
-    font-size: 20px;
+  }
+  .form-block {
+    display: inline-block;
+    max-width: 800px;
+    font-size: 16px;
     .detail-block {
       margin: 50px 0;
       .detail-item {
@@ -22,6 +26,12 @@ html {
     }
     .form-table-component {
       margin-bottom: 50px;
+      .body-cell {
+        font-size: 14px;
+      }
+    }
+    .textarea-component {
+      margin-bottom: 50px;
     }
   }
   .create-btn {
@@ -31,5 +41,12 @@ html {
     color: cadetblue;
     text-decoration: underline;
     cursor: pointer;
+  }
+  .result-show-frame {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 500px;
+    vertical-align: top;
+    // border: 1px solid #000;
   }
 }

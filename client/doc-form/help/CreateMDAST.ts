@@ -1,5 +1,6 @@
 import { ITableCellDetail } from 'client/common/components/form-table/propsType';
 import CreateMDNode from './CreateMDNode';
+import MDTool from 'marked-ast';
 
 export default class MDHandle extends CreateMDNode {
   constructor(MDDetail: IAPIMDFormat) {
@@ -18,16 +19,16 @@ export default class MDHandle extends CreateMDNode {
     this.ASTRoot.push(this.createTable(['类别', '详情'], [['request-method', MDDetail.method], ['request-url', MDDetail.url]]));
     this.ASTRoot.push(this.createHeader(4, 'params'));
     this.ASTRoot.push(this.createTable(['参数名', '类型', '说明', 'parents', '示例', '值选项', 'rename'],
-    MDDetail.requestList.map((value) => Object.values(value)), ['']));
+      MDDetail.requestList.map((value) => Object.values(value)), ['']));
     this.ASTRoot.push(this.createHeader(4, 'explain'));
     this.ASTRoot.push(this.createTable(['参数名', '类型', '说明', 'parents', '示例', '值选项', 'rename'],
-    MDDetail.responseList.map((value) => Object.values(value)), ['']));
+      MDDetail.responseList.map((value) => Object.values(value)), ['']));
     this.ASTRoot.push(this.createHeader(4, 'example'));
     this.ASTRoot.push(this.createCode('json', MDDetail.JSONText));
   }
 
   private AST2MD = () => {
-
+    this.MD = MDTool.AST2HTML(this.ASTRoot);
   }
 
   public getAST = () => {
