@@ -56,10 +56,6 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
 
   public createMDFile = () => {
     const MDHandleClass = this.getMDHandleClass();
-    // console.log(ast.getAST());
-    console.log(MDHandleClass.getAST());
-    // console.log(ast);
-    // console.log(MDTool.MD2AST('#### example\n```json\n{"code": 0,\n"msg": "用户卡列表"\n}```'));
     this.downloadFile('a.md', MDTool.AST2MD(MDHandleClass.getAST()));
   }
 
@@ -72,7 +68,6 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
     aLink.href = URL.createObjectURL(blob);
     aLink.dispatchEvent(evt);
     aLink.click();
-    // console.log(document.createEvent);
   }
 
   private getMDHandleClass = () => {
@@ -85,12 +80,12 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
       JSONText
     } = this.state;
     return new MDHandle({
-      method, url, description, requestList, responseList, JSONText
+      method, url, description: description || ' ', requestList, responseList, JSONText
     });
   }
 
   public getResultEle = () => {
-    return this.getMDHandleClass().getMD();
+    return this.getMDHandleClass().getHTML();
   }
 
   public changeJSONText = (value: IJSONValue) => {

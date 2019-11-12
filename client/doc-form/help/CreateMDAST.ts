@@ -7,10 +7,12 @@ export default class MDHandle extends CreateMDNode {
     super();
     this.createAST(MDDetail);
     this.AST2MD();
+    this.AST2HTML();
   }
 
   private ASTRoot: any[];
   private MD: any;
+  private HTML: any;
 
   private createAST = (MDDetail: IAPIMDFormat) => {
     this.ASTRoot = [];
@@ -28,7 +30,11 @@ export default class MDHandle extends CreateMDNode {
   }
 
   private AST2MD = () => {
-    this.MD = MDTool.AST2HTML(this.ASTRoot);
+    this.MD = MDTool.AST2MD(this.ASTRoot);
+  }
+
+  private AST2HTML = () => {
+    this.HTML = MDTool.MD2HTML(this.MD);
   }
 
   public getAST = () => {
@@ -37,6 +43,10 @@ export default class MDHandle extends CreateMDNode {
 
   public getMD = () => {
     return this.MD;
+  }
+
+  public getHTML = () => {
+    return this.HTML;
   }
 }
 

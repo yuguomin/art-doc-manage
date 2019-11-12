@@ -24,7 +24,6 @@ export default class CreateMDNode {
   }
 
   protected createTable = (headerList: string[], bodyList: string[][], suffixArr: string[] = []) => {
-    console.log('suffixArr', suffixArr);
     return {
       type: 'table',
       header: [this.createTableRow(headerList)],
@@ -35,7 +34,6 @@ export default class CreateMDNode {
   }
 
   private createTableRow = (rowList: string[]) => {
-    console.log('rowList', rowList);
     const content = rowList.map((value) => {
       return {
         type: 'tablecell',
