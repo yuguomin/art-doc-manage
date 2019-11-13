@@ -12,40 +12,7 @@ export default class FormTable extends CoreComponent<IFormTableProps, any> {
 
   public state = {
     addFirstStatus: false,
-    tableCellList: [
-      // {
-      //   name: 'color',
-      //   type: 'string',
-      //   explain: '颜色',
-      //   example: '#fff',
-      //   enum: 'a=1',
-      //   parents: 'data'
-      // },
-      // {
-      //   name: 'text',
-      //   type: 'boolean',
-      //   explain: '颜色',
-      //   example: '#fff',
-      //   enum: 'a=1,b=2,c=3,',
-      //   parents: 'data'
-      // },
-      // {
-      //   name: 'name',
-      //   type: 'array',
-      //   explain: '颜色',
-      //   example: '#fff',
-      //   enum: 'a=1,b=2,c=3,d=4,e=5,f=6',
-      //   parents: 'data.dads'
-      // },
-      // {
-      //   name: 'age',
-      //   type: 'number',
-      //   explain: '颜色',
-      //   example: '#fff',
-      //   enum: 'a=1,b=2,c=3,d=4,e=5,f=6',
-      //   parents: 'data'
-      // }
-    ] as ITableCellDetail[],
+    tableCellList: [] as ITableCellDetail[],
     addValue: {
       parents: 'data'
     }
@@ -70,7 +37,9 @@ export default class FormTable extends CoreComponent<IFormTableProps, any> {
   public onDeleteCell = (cellIndex: number) => {
     const tableCellList = this.state.tableCellList;
     tableCellList.splice(cellIndex, 1);
-    this.setState({ tableCellList });
+    this.setState({ tableCellList }, () => {
+      this.props.onChangeList(tableCellList);
+    });
   }
 
   public onChangeList = (tableCellList: ITableCellDetail[]) => {

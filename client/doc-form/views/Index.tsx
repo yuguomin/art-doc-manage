@@ -157,7 +157,7 @@ export default class DocFormIndex extends CoreComponentAll<any, any> {
           </div>
           <div className="result-show-frame" dangerouslySetInnerHTML = {{ __html: this.getResultEle() }}></div>
         </div>
-        <div className="create-btn" onClick={this.createMDFile}>create</div>
+        <div className="create-btn disable" onClick={this.createMDFile}>创建</div>
       </div>
     );
   }

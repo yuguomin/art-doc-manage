@@ -18,15 +18,16 @@ const artConfig = {
 
   webpack: {
     entry: {
-      [`${projectVirtualPath}/doc-form`]: ["./client/doc-form/index.tsx"]
+      [`${projectVirtualPath}/doc-form`]: ["./client/doc-form/index.tsx"],
+      [`${projectVirtualPath}/vendors`]: ["./client/vendors"]
     },
     output: {
       // Config CDN path for static files, images ....
-      intePublicPath: 'replace_it',
+      intePublicPath: 'http://10.10.10.132:9090/frontend/',
       prodPublicPath: 'replace_it'
     },
     dll: {
-      version: 'dll_version_01',
+      version: '20190522_v1',
       vendors: [] // modify this option cautiously
     }
   }
