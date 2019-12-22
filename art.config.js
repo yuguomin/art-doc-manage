@@ -24,7 +24,7 @@ const artConfig = {
     output: {
       // Config CDN path for static files, images ....
       intePublicPath: 'http://10.10.10.132:9090/frontend/',
-      prodPublicPath: 'replace_it'
+      prodPublicPath: 'http://getui996.com;'
     },
     dll: {
       version: '20190522_v1',
